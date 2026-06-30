@@ -30,39 +30,26 @@ require_once app_path('Http/Controllers/FineController.php');
 require_once app_path('Http/Controllers/ReservationController.php');
 
 // Imports
-use App\Http\Controllers\PublicController;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Master\AuthorController;
+use App\Http\Controllers\Master\BookController;
+use App\Http\Controllers\Master\CategoryController;
+use App\Http\Controllers\Master\LibrarianController;
+use App\Http\Controllers\Master\MemberController;
+use App\Http\Controllers\Master\PublisherController;
+use App\Http\Controllers\Master\ShelfController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
-
-use App\Http\Controllers\Master\BookController;
-use App\Http\Controllers\Master\AuthorController;
-use App\Http\Controllers\Master\PublisherController;
-use App\Http\Controllers\Master\CategoryController;
-use App\Http\Controllers\Master\ShelfController;
-use App\Http\Controllers\Master\MemberController;
-use App\Http\Controllers\Master\LibrarianController;
-
 use App\Http\Controllers\Transaction\BorrowingController;
-use App\Http\Controllers\Transaction\ReturnController;
 use App\Http\Controllers\Transaction\FineController;
 use App\Http\Controllers\Transaction\ReservationController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\Transaction\ReturnController;
+use App\Http\Controllers\WishlistController;
 
 // ==========================================
 // 1. PUBLIC ROUTES (GUEST / ALL USERS)
@@ -82,7 +69,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
-    
+
     // Forgot / Reset Password
     Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
     Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
@@ -141,7 +128,7 @@ Route::middleware('auth')->group(function () {
         // Books Custom Operations
         Route::post('books/{book}/add-copy', [BookController::class, 'addCopy'])->name('books.add-copy');
         Route::get('books/copies/{bookCopy}/barcode', [BookController::class, 'generateBarcode'])->name('books.barcode');
-        
+
         // Resources
         Route::resource('books', BookController::class);
         Route::resource('authors', AuthorController::class);

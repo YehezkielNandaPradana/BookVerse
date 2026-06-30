@@ -3,101 +3,161 @@
 @section('title', 'Reset Password')
 
 @section('content')
-<div class="min-h-[calc(100vh-4rem)] flex items-center justify-center px-6 py-10">
-    <div class="w-full max-w-md">
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div class="px-8 py-10">
-                <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 4l-.7.7L15 11l4-4z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <h1 class="text-2xl font-bold text-gray-800">Buat Password Baru</h1>
-                    <p class="text-gray-500 mt-1">Masukkan password baru untuk akun Anda</p>
-                </div>
-                
-                @if (session('error'))
-                    <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg">
-                        {{ session('error') }}
-                    </div>
-                @endif
-                
-                @if ($errors->any())
-                    <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg">
-                        <ul class="list-disc list-inside text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                
-                <form action="{{ route('password.update') }}" method="POST" class="space-y-6">
-                    @csrf
-                    
-                    <input type="hidden" name="token" value="{{ $token }}">
-                    
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        <div class="relative">
-                            <input type="email" id="email" name="email" value="{{ $email }}" required readonly
-                                class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none sm:text-base">
-                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        @if ($errors->has('email'))
-                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('email') }}</p>
-                        @endif
-                    </div>
-                    
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password Baru</label>
-                        <div class="relative">
-                            <input type="password" id="password" name="password" required
-                                class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-base"
-                                placeholder="Buat password baru">
-                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
-                        </div>
-                        @if ($errors->has('password'))
-                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('password') }}</p>
-                        @endif
-                    </div>
-                    
-                    <div>
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password Baru</label>
-                        <div class="relative">
-                            <input type="password" id="password_confirmation" name="password_confirmation" required
-                                class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-base"
-                                placeholder="Ulangi password baru">
-                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
-                        </div>
-                        @if ($errors->has('password_confirmation'))
-                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('password_confirmation') }}</p>
-                        @endif
-                    </div>
-                    
-                    <div>
-                        <button type="submit"
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                            Reset Password
-                        </button>
-                    </div>
-                </form>
-                
-                <div class="mt-8 text-center text-sm text-gray-500">
-                    Ingat password Anda?
-                    <a href="{{ route('login') }}" class="font-semibold text-blue-600 hover:text-blue-500">
-                        Masuk
-                    </a>
-                </div>
+<div style="width:100%; max-width:28rem; animation:bvFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;">
+    <div style="background:#fff; border-radius:28px; border:1px solid #E3F1FB; box-shadow:0 24px 80px -20px rgba(14,165,233,0.15), 0 8px 24px -8px rgba(0,0,0,0.04); padding:2.5rem;">
+
+        {{-- Header --}}
+        <div style="text-align:center; margin-bottom:2.5rem;">
+            <div style="display:inline-flex; align-items:center; justify-content:center; width:4rem; height:4rem; border-radius:1rem; margin-bottom:1.25rem; background:linear-gradient(135deg,#E0F2FE,#F0F9FF);">
+                <svg style="width:2rem; height:2rem; color:#0EA5E9;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9.75 15 10.5l.75.75" />
+                </svg>
             </div>
+            <h1 style="margin:0; font-size:1.5rem; font-weight:600; letter-spacing:-0.02em; color:#0C2D3F; font-family:'Fraunces',serif;">Buat Password Baru</h1>
+            <p style="margin-top:0.5rem; font-size:0.875rem; color:#5B7587; font-family:'Inter',sans-serif;">Masukkan password baru untuk akun Anda</p>
+        </div>
+
+        {{-- Error Session --}}
+        @if (session('error'))
+            <div style="background:linear-gradient(135deg,#FEF2F2,#FFF1F2); border:1px solid #FECACA; border-radius:16px; margin-bottom:1.5rem; padding:1rem; display:flex; align-items:flex-start; gap:0.75rem;">
+                <svg style="width:1.25rem; height:1.25rem; margin-top:0.125rem; flex-shrink:0; color:#EF4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <p style="margin:0; font-size:0.875rem; color:#EF4444;">{{ session('error') }}</p>
+            </div>
+        @endif
+
+        {{-- Success Session --}}
+        @if (session('status'))
+            <div style="background:linear-gradient(135deg,#ECFDF5,#F0FDF4); border:1px solid #A7F3D0; border-radius:16px; margin-bottom:1.5rem; padding:1rem; display:flex; align-items:flex-start; gap:0.75rem;">
+                <svg style="width:1.25rem; height:1.25rem; margin-top:0.125rem; flex-shrink:0; color:#10B981;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <p style="margin:0; font-size:0.875rem; color:#10B981;">{{ session('status') }}</p>
+            </div>
+        @endif
+
+        {{-- Validation Errors --}}
+        @if ($errors->any())
+            <div style="background:linear-gradient(135deg,#FEF2F2,#FFF1F2); border:1px solid #FECACA; border-radius:16px; margin-bottom:1.5rem; padding:1rem; display:flex; align-items:flex-start; gap:0.75rem;">
+                <svg style="width:1.25rem; height:1.25rem; margin-top:0.125rem; flex-shrink:0; color:#EF4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <ul style="margin:0; padding:0; list-style:disc inside; font-size:0.875rem; color:#EF4444;">
+                    @foreach ($errors->all() as $error)
+                        <li style="margin-bottom:0.25rem;">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        {{-- Form --}}
+        <form action="{{ route('password.update') }}" method="POST" style="display:flex; flex-direction:column; gap:1.75rem;">
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+
+            {{-- Email (readonly) --}}
+            <div>
+                <label for="email" style="display:block; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem; color:#5B7587;">Email</label>
+                <div style="position:relative;">
+                    <svg style="position:absolute; left:0; top:50%; transform:translateY(-50%); width:1.25rem; height:1.25rem; color:#9BB5C7;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                    <input type="email" id="email" name="email" value="{{ $email }}" required readonly
+                        style="width:100%; padding:0.75rem 0 0.75rem 2.25rem; font-size:0.875rem; font-family:'Inter',sans-serif; color:#9BB5C7; background:transparent; border:none; border-bottom:2px solid #E3F1FB; outline:none; cursor:default;">
+                </div>
+                @if ($errors->has('email'))
+                    <p style="margin-top:0.375rem; font-size:0.75rem; color:#EF4444; display:flex; align-items:center; gap:0.25rem;">
+                        <svg style="width:0.875rem; height:0.875rem; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        {{ $errors->first('email') }}
+                    </p>
+                @endif
+            </div>
+
+            {{-- Password Baru --}}
+            <div>
+                <label for="password" style="display:block; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem; color:#5B7587;">Password Baru</label>
+                <div style="position:relative;">
+                    <svg style="position:absolute; left:0; top:50%; transform:translateY(-50%); width:1.25rem; height:1.25rem; color:#9BB5C7;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                    <input type="password" id="password" name="password" required
+                        style="width:100%; padding:0.75rem 2.5rem 0.75rem 2.25rem; font-size:0.875rem; font-family:'Inter',sans-serif; color:#0C2D3F; background:transparent; border:none; border-bottom:2px solid #E3F1FB; outline:none; transition:border-color 0.3s;"
+                        onfocus="this.style.borderBottomColor='#0EA5E9'"
+                        onblur="this.style.borderBottomColor='#E3F1FB'"
+                        placeholder="Buat password baru">
+                    <button type="button" onclick="togglePassword('password', this)" style="position:absolute; right:0; top:50%; transform:translateY(-50%); padding:0.375rem; background:none; border:none; cursor:pointer; color:#9BB5C7; transition:color 0.2s;" onmouseover="this.style.color='#5B7587'" onmouseout="this.style.color='#9BB5C7'">
+                        <svg class="eye-open" style="width:1.25rem; height:1.25rem; display:block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <svg class="eye-closed" style="width:1.25rem; height:1.25rem; display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.292 4.338 5.31 7.5 10.066 7.5.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                        </svg>
+                    </button>
+                </div>
+                @if ($errors->has('password'))
+                    <p style="margin-top:0.375rem; font-size:0.75rem; color:#EF4444; display:flex; align-items:center; gap:0.25rem;">
+                        <svg style="width:0.875rem; height:0.875rem; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        {{ $errors->first('password') }}
+                    </p>
+                @endif
+            </div>
+
+            {{-- Konfirmasi Password --}}
+            <div>
+                <label for="password_confirmation" style="display:block; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem; color:#5B7587;">Konfirmasi Password Baru</label>
+                <div style="position:relative;">
+                    <svg style="position:absolute; left:0; top:50%; transform:translateY(-50%); width:1.25rem; height:1.25rem; color:#9BB5C7;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                    </svg>
+                    <input type="password" id="password_confirmation" name="password_confirmation" required
+                        style="width:100%; padding:0.75rem 2.5rem 0.75rem 2.25rem; font-size:0.875rem; font-family:'Inter',sans-serif; color:#0C2D3F; background:transparent; border:none; border-bottom:2px solid #E3F1FB; outline:none; transition:border-color 0.3s;"
+                        onfocus="this.style.borderBottomColor='#0EA5E9'"
+                        onblur="this.style.borderBottomColor='#E3F1FB'"
+                        placeholder="Ulangi password baru">
+                    <button type="button" onclick="togglePassword('password_confirmation', this)" style="position:absolute; right:0; top:50%; transform:translateY(-50%); padding:0.375rem; background:none; border:none; cursor:pointer; color:#9BB5C7; transition:color 0.2s;" onmouseover="this.style.color='#5B7587'" onmouseout="this.style.color='#9BB5C7'">
+                        <svg class="eye-open" style="width:1.25rem; height:1.25rem; display:block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <svg class="eye-closed" style="width:1.25rem; height:1.25rem; display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.292 4.338 5.31 7.5 10.066 7.5.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                        </svg>
+                    </button>
+                </div>
+                @if ($errors->has('password_confirmation'))
+                    <p style="margin-top:0.375rem; font-size:0.75rem; color:#EF4444; display:flex; align-items:center; gap:0.25rem;">
+                        <svg style="width:0.875rem; height:0.875rem; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        {{ $errors->first('password_confirmation') }}
+                    </p>
+                @endif
+            </div>
+
+            {{-- Submit --}}
+            <div style="padding-top:0.5rem;">
+                <button type="submit"
+                    style="position:relative; overflow:hidden; width:100%; padding:0.875rem 1.5rem; font-size:0.875rem; font-weight:600; font-family:'Inter',sans-serif; color:#fff; background:linear-gradient(135deg,#0EA5E9,#0284C7); border:none; border-radius:9999px; cursor:pointer; transition:all 0.3s; box-shadow:0 8px 24px -4px rgba(14,165,233,0.35);"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px -4px rgba(14,165,233,0.45)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px -4px rgba(14,165,233,0.35)'">
+                    Reset Password
+                </button>
+            </div>
+        </form>
+
+        {{-- Footer Link --}}
+        <div style="margin-top:2.5rem; text-align:center; font-size:0.875rem; color:#5B7587;">
+            Ingat password Anda?
+            <a href="{{ route('login') }}" style="font-weight:600; color:#0EA5E9; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#0284C7'" onmouseout="this.style.color='#0EA5E9'">
+                Masuk
+            </a>
         </div>
     </div>
 </div>

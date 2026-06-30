@@ -1,0 +1,254 @@
+📌 PHASE 1 - Perencanaan
+1. Analisis Kebutuhan
+ Tentukan tujuan website
+ Tentukan target pengguna
+ Tentukan semua fitur
+ Tentukan hak akses (Role)
+2. Analisis Sistem
+ Flow Login
+ Flow CRUD Buku
+ Flow Peminjaman
+ Flow Pengembalian
+ Flow Denda
+ Flow Reservasi
+ Flow Laporan
+3. Dokumentasi Awal
+ Flowchart
+ Use Case Diagram
+ Activity Diagram
+ Sequence Diagram
+ ERD
+ Struktur Database
+📌 PHASE 2 - Desain UI/UX
+Public
+ Landing Page
+ Login
+ Register
+ Lupa Password
+ Daftar Buku
+ Detail Buku
+ Profil Perpustakaan
+ Kontak
+Dashboard
+ Dashboard Admin
+ Dashboard Petugas
+ Dashboard Anggota
+Master Data
+ Halaman Buku
+ Tambah Buku
+ Edit Buku
+ Detail Buku
+ Halaman Kategori
+ Tambah Kategori
+ Halaman Penulis
+ Halaman Penerbit
+ Halaman Rak
+ Halaman Anggota
+ Halaman Petugas
+📌 PHASE 3 - Database
+Migration
+ roles
+ users
+ categories
+ authors
+ publishers
+ shelves
+ books
+ book_copies
+ borrowings
+ borrowing_details
+ returns
+ fines
+ reservations
+ wishlists
+ notifications
+ activity_logs
+ settings
+Seeder
+ Role
+ Admin
+ Petugas
+ Dummy Buku
+ Dummy Penulis
+ Dummy Anggota
+📌 PHASE 4 - Authentication
+ Login
+ Register
+ Logout
+ Forgot Password
+ Email Verification
+ Middleware
+ Policy
+ Gate
+📌 PHASE 5 - Dashboard
+
+Dashboard berisi
+
+ Total Buku
+ Total Anggota
+ Total Petugas
+ Buku Dipinjam
+ Buku Tersedia
+ Buku Terlambat
+ Grafik Peminjaman
+ Grafik Pengunjung
+ Aktivitas Terbaru
+📌 PHASE 6 - Master Data
+Buku
+ CRUD
+ Upload Cover
+ Upload PDF (opsional)
+ Barcode
+ QR Code
+ Multi Copy
+Penulis
+ CRUD
+Penerbit
+ CRUD
+Rak
+ CRUD
+Kategori
+ CRUD
+Anggota
+ CRUD
+ Upload Foto
+Petugas
+ CRUD
+📌 PHASE 7 - Transaksi
+Peminjaman
+ Cari Buku
+ Scan Barcode
+ Tambah ke Keranjang
+ Simpan Peminjaman
+ Approval
+ Cetak Bukti
+Pengembalian
+ Cari Transaksi
+ Hitung Denda
+ Simpan Pengembalian
+ Cetak Bukti
+Perpanjangan
+ Ajukan
+ Approve
+ Reject
+📌 PHASE 8 - Denda
+ Hitung Otomatis
+ Status Dibayar
+ Riwayat Pembayaran
+📌 PHASE 9 - Reservasi
+ Reservasi Buku
+ Daftar Antrian
+ Notifikasi
+📌 PHASE 10 - Wishlist
+ Tambah Wishlist
+ Hapus Wishlist
+📌 PHASE 11 - Pencarian
+ Search
+ Filter
+ Sorting
+📌 PHASE 12 - Profil
+ Edit Profil
+ Upload Foto
+ Ganti Password
+📌 PHASE 13 - Notifikasi
+ Buku Telat
+ Buku Siap Diambil
+ Reservasi
+ Approval
+📌 PHASE 14 - Laporan
+ Laporan Buku
+ Laporan Anggota
+ Laporan Peminjaman
+ Laporan Pengembalian
+ Laporan Denda
+
+Export
+
+ PDF
+ Excel
+📌 PHASE 15 - Setting
+ Nama Website
+ Logo
+ Favicon
+ Lama Pinjam
+ Maksimal Buku
+ Denda per Hari
+📌 PHASE 16 - Audit
+ Activity Log
+ Login History
+📌 PHASE 17 - Optimasi
+ Pagination
+ Lazy Loading
+ Cache
+ Queue
+ Eager Loading
+ Validasi
+📌 PHASE 18 - Testing
+ Login
+ CRUD
+ Upload
+ Search
+ Peminjaman
+ Pengembalian
+ Hak Akses
+ Laporan
+📌 PHASE 19 - Deployment
+ Domain
+ Hosting/VPS
+ SSL
+ Backup Database
+ Scheduler
+ Queue Worker
+📌 PHASE 20 - Dokumentasi
+ README GitHub
+ Screenshot
+ ERD
+ Flowchart
+ Instalasi
+ Manual Pengguna
+ API Documentation (jika ada)
+📂 Struktur pengerjaan yang disarankan
+01. Analisis kebutuhan
+02. Desain database (ERD)
+03. Desain UI/UX
+04. Setup Laravel
+05. Authentication
+06. Dashboard
+07. CRUD Master Data
+08. Peminjaman
+09. Pengembalian
+10. Denda
+11. Reservasi
+12. Wishlist
+13. Profil
+14. Laporan
+15. Notifikasi
+16. Setting
+17. Testing
+18. Deployment
+19. Dokumentasi
+💡 Saran untuk pembagian kerja 2 orang
+
+Karena sebelumnya kamu bilang project ini dikerjakan berdua:
+
+Frontend
+
+Desain UI/UX
+Blade Template
+Layout Dashboard
+Form CRUD
+Tabel Data
+Komponen UI
+Responsif
+Integrasi dengan endpoint backend
+
+Backend
+
+Database & Migration
+Model & Relasi
+Controller
+Authentication & Authorization
+CRUD Logic
+Validasi
+Laporan
+API (jika diperlukan)

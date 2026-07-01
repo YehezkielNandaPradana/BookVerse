@@ -66,6 +66,35 @@
     }
     @keyframes wrapIn { to { opacity: 1; transform: translateY(0); } }
 
+    /* ═══════════ HOME NAVIGATION ═══════════ */
+    .nav-home {
+        position: absolute;
+        top: -3.5rem;
+        right: 0;
+        z-index: 20;
+    }
+    .btn-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.6rem 1.25rem;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #ffffff, #e0f2fe);
+        border: 1px solid #bae6fd;
+        color: #0ea5e9;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px -2px rgba(14, 165, 233, 0.15);
+    }
+    .btn-home:hover {
+        background: linear-gradient(135deg, #e0f2fe, #ffffff);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px -4px rgba(14, 165, 233, 0.25);
+        color: #0284c7;
+    }
+
     /* ═══════════ ILLUSTRATION HEADER ═══════════ */
     .illus-header { text-align: center; margin-bottom: 1.75rem; }
 
@@ -358,6 +387,13 @@
     <div class="mote" style="left:50%;width:7px;height:9px;animation-duration:14s;animation-delay:7s;transform:rotate(-20deg);"></div>
 
     <div class="auth-wrap">
+        <a href="{{ route('beranda') }}" class="nav-home btn-home">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.278 11.503a3 3 0 0 1 0-3.006l7.592-6.667a3 3 0 0 1 3.36 0l7.592 6.667a3 3 0 0 1 0 3.006l-7.592 6.667a3 3 0 0 1-3.36 0L2.278 11.503z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+            </svg>
+            Beranda
+        </a>
 
         <!-- ── Illustration + Heading ── -->
         <div class="illus-header">

@@ -2,94 +2,160 @@
 
 @section('title', 'Beranda')
 
+@push('styles')
+<style>
+    .bv-root{width:100%}
+    .bv-hero-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:center}
+    .bv-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .bv-cats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .bv-books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+    .bv-row{display:flex;align-items:flex-end;justify-content:space-between}
+    .bv-search{display:flex;align-items:center;gap:0.75rem}
+    .bv-tags{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
+    .bv-card-row{display:flex;align-items:center;justify-content:space-between}
+    .bv-card-foot{border-top:1px solid #E3F1FB;padding-top:1rem;display:flex;align-items:center;justify-content:space-between}
+    .bv-badge-row{display:flex;align-items:center;gap:0.75rem}
+    .bv-icon-box{width:2.5rem;height:2.5rem;border-radius:0.75rem;background:rgba(14,165,233,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .bv-hero-illust{display:none}
+    .bv-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid #E3F1FB}
+    .bv-nav-inner{max-width:72rem;margin:0 auto;padding:0.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .bv-nav-links{display:flex;align-items:center;gap:1rem}
+    @media(min-width:768px){
+        .bv-stats-grid{grid-template-columns:repeat(4,1fr)}
+        .bv-cats-grid{grid-template-columns:repeat(3,1fr)}
+        .bv-books-grid{grid-template-columns:repeat(4,1fr)}
+    }
+    @media(min-width:1024px){
+        .bv-hero-grid{grid-template-columns:1fr 1fr}
+        .bv-cats-grid{grid-template-columns:repeat(6,1fr)}
+        .bv-hero-illust{display:block}
+        .bv-nav-links{gap:1.25rem}
+    }
+</style>
+@endpush
+
 @section('content')
+<div class="bv-root">
+
+    {{-- ==========================================================
+         NAVIGASI
+    =========================================================== --}}
+    <nav class="bv-nav">
+        <div class="bv-nav-inner">
+            <a href="{{ route('beranda') }}" style="font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:#0C2D3F; text-decoration:none; transition:opacity 0.2s;"
+               onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                Book<span style="color:#0EA5E9;">Verse</span>
+            </a>
+
+            <div class="bv-nav-links">
+                <a href="{{ route('login') }}" style="font-size:0.875rem; color:#5B7587; text-decoration:none; font-weight:500; font-family:'Inter',sans-serif; transition:color 0.2s; padding:0.5rem 0;"
+                   onmouseover="this.style.color='#0EA5E9'" onmouseout="this.style.color='#5B7587'">
+                    Masuk
+                </a>
+                <a href="{{ route('register') }}" style="font-size:0.875rem; color:#fff; background:linear-gradient(135deg,#0EA5E9,#0284C7); border-radius:9999px; padding:0.5rem 1.25rem; text-decoration:none; font-weight:500; font-family:'Inter',sans-serif; box-shadow:0 8px 20px -6px rgba(14,165,233,0.4); transition:all 0.2s;"
+                   onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 12px 24px -6px rgba(14,165,233,0.5)'"
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px -6px rgba(14,165,233,0.4)'">
+                    Daftar
+                </a>
+            </div>
+        </div>
+    </nav>
 
     {{-- ==========================================================
          HERO
     =========================================================== --}}
-    <section class="relative overflow-hidden">
-        {{-- ambient glow --}}
-        <div class="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full bg-[#0EA5E9]/20 blur-[100px]"></div>
-        <div class="pointer-events-none absolute top-10 right-0 h-80 w-80 rounded-full bg-[#0284C7]/10 blur-[100px]"></div>
+    <section style="position:relative; overflow:hidden;">
+        <div style="pointer-events:none; position:absolute; top:-8rem; left:-6rem; width:24rem; height:24rem; border-radius:9999px; background:rgba(14,165,233,0.2); filter:blur(100px);"></div>
+        <div style="pointer-events:none; position:absolute; top:2.5rem; right:0; width:20rem; height:20rem; border-radius:9999px; background:rgba(2,132,199,0.1); filter:blur(100px);"></div>
 
-        <div class="relative max-w-6xl mx-auto px-6 pt-16 pb-20">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div style="position:relative; max-width:72rem; margin:0 auto; padding:4rem 1.5rem 5rem;">
+            <div class="bv-hero-grid">
 
                 {{-- Left: copy --}}
-                <div class="animate-[fadeUp_.6s_ease_forwards] opacity-0">
-                    <span class="inline-flex items-center gap-2 rounded-full bg-white border border-[#E3F1FB] px-4 py-1.5 text-xs font-medium text-[#0284C7] shadow-[0_8px_24px_-8px_rgba(14,165,233,0.25)]">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div style="animation:bvFadeUp 0.6s ease forwards; opacity:0;">
+                    <span style="display:inline-flex; align-items:center; gap:0.5rem; border-radius:9999px; background:#fff; border:1px solid #E3F1FB; padding:0.375rem 1rem; font-size:0.75rem; font-weight:500; color:#0284C7; box-shadow:0 8px 24px -8px rgba(14,165,233,0.25); font-family:'Inter',sans-serif;">
+                        <svg style="width:0.875rem; height:0.875rem;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
                         </svg>
                         Perpustakaan Digital Kampus
                     </span>
 
-                    <h1 class="mt-6 font-[Fraunces] tracking-tight text-4xl md:text-5xl leading-[1.1] text-[#0C2D3F]">
+                    <h1 style="margin-top:1.5rem; font-family:'Fraunces',serif; letter-spacing:-0.02em; font-size:2.25rem; line-height:1.1; color:#0C2D3F;">
                         Temukan, pinjam, dan
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0EA5E9] to-[#0369A1]">jelajahi koleksi buku</span>
+                        <span style="color:transparent; -webkit-background-clip:text; background-clip:text; background-image:linear-gradient(to right,#0EA5E9,#0369A1);">jelajahi koleksi buku</span>
                         favoritmu
                     </h1>
 
-                    <p class="mt-5 text-[#5B7587] text-base leading-relaxed max-w-md">
+                    <p style="margin-top:1.25rem; color:#5B7587; font-size:0.875rem; line-height:1.625; max-width:28rem; font-family:'Inter',sans-serif;">
                         BookVerse membantu kamu menemukan buku, mengelola peminjaman, dan menjaga jadwal pengembalian tetap rapi — semua dalam satu tempat.
                     </p>
 
-                    {{-- search --}}
-                    <form class="mt-8 flex items-center gap-3 bg-white rounded-full border border-[#E3F1FB] pl-5 pr-1.5 py-1.5 shadow-[0_20px_45px_-20px_rgba(14,165,233,0.35)] max-w-md focus-within:border-[#0EA5E9] transition-colors">
-                        <svg class="w-4.5 h-4.5 text-[#5B7587] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    {{-- Search --}}
+                    <div class="bv-search" id="bvSearchWrap" style="margin-top:2rem; background:#fff; border-radius:9999px; border:1px solid #E3F1FB; padding:0.375rem 0.375rem 0.375rem 1.25rem; box-shadow:0 20px 45px -20px rgba(14,165,233,0.35); max-width:28rem; transition:border-color 0.2s;">
+                        <svg style="width:1.125rem; height:1.125rem; color:#5B7587; flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5A6.5 6.5 0 114 10.5a6.5 6.5 0 0113 0z"/>
                         </svg>
                         <input
                             type="text"
                             placeholder="Cari judul, penulis, atau ISBN..."
-                            class="w-full bg-transparent border-0 focus:ring-0 text-sm text-[#0C2D3F] placeholder:text-[#5B7587]/70 py-2"
+                            style="width:100%; background:transparent; border:none; outline:none; font-size:0.875rem; color:#0C2D3F; padding:0.5rem 0; font-family:'Inter',sans-serif;"
+                            onfocus="document.getElementById('bvSearchWrap').style.borderColor='#0EA5E9'"
+                            onblur="document.getElementById('bvSearchWrap').style.borderColor='#E3F1FB'"
                         >
-                        <button type="submit" class="shrink-0 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#0284C7] text-white text-sm font-medium px-5 py-2.5 shadow-[0_10px_25px_-8px_rgba(2,132,199,0.6)] hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-8px_rgba(2,132,199,0.7)] transition-all duration-200">
+                        <button type="submit" style="flex-shrink:0; border-radius:9999px; background:linear-gradient(135deg,#0EA5E9,#0284C7); color:#fff; font-size:0.875rem; font-weight:500; padding:0.625rem 1.25rem; border:none; cursor:pointer; font-family:'Inter',sans-serif; box-shadow:0 10px 25px -8px rgba(2,132,199,0.6); transition:all 0.2s;"
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 16px 30px -8px rgba(2,132,199,0.7)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px -8px rgba(2,132,199,0.6)'">
                             Cari
                         </button>
-                    </form>
+                    </div>
 
-                    <div class="mt-6 flex items-center gap-2 text-xs text-[#5B7587]">
+                    <div class="bv-tags" style="margin-top:1.5rem; font-size:0.75rem; color:#5B7587; font-family:'Inter',sans-serif;">
                         <span>Populer:</span>
-                        <a href="#" class="rounded-full bg-white border border-[#E3F1FB] px-3 py-1 hover:border-[#0EA5E9] hover:text-[#0284C7] transition-colors">Fiksi</a>
-                        <a href="#" class="rounded-full bg-white border border-[#E3F1FB] px-3 py-1 hover:border-[#0EA5E9] hover:text-[#0284C7] transition-colors">Sains</a>
-                        <a href="#" class="rounded-full bg-white border border-[#E3F1FB] px-3 py-1 hover:border-[#0EA5E9] hover:text-[#0284C7] transition-colors">Sejarah</a>
+                        <a href="#" style="border-radius:9999px; background:#fff; border:1px solid #E3F1FB; padding:0.25rem 0.75rem; color:#5B7587; text-decoration:none; transition:all 0.2s; font-size:0.75rem;"
+                            onmouseover="this.style.borderColor='#0EA5E9'; this.style.color='#0284C7'"
+                            onmouseout="this.style.borderColor='#E3F1FB'; this.style.color='#5B7587'">Fiksi</a>
+                        <a href="#" style="border-radius:9999px; background:#fff; border:1px solid #E3F1FB; padding:0.25rem 0.75rem; color:#5B7587; text-decoration:none; transition:all 0.2s; font-size:0.75rem;"
+                            onmouseover="this.style.borderColor='#0EA5E9'; this.style.color='#0284C7'"
+                            onmouseout="this.style.borderColor='#E3F1FB'; this.style.color='#5B7587'">Sains</a>
+                        <a href="#" style="border-radius:9999px; background:#fff; border:1px solid #E3F1FB; padding:0.25rem 0.75rem; color:#5B7587; text-decoration:none; transition:all 0.2s; font-size:0.75rem;"
+                            onmouseover="this.style.borderColor='#0EA5E9'; this.style.color='#0284C7'"
+                            onmouseout="this.style.borderColor='#E3F1FB'; this.style.color='#5B7587'">Sejarah</a>
                     </div>
                 </div>
 
                 {{-- Right: illustration card stack --}}
-                <div class="relative hidden lg:block animate-[fadeUp_.7s_.1s_ease_forwards] opacity-0">
-                    <div class="relative mx-auto w-full max-w-sm aspect-[4/5] rounded-[28px] bg-white border border-[#E3F1FB] shadow-[0_40px_80px_-30px_rgba(14,165,233,0.4)] p-6 flex flex-col justify-between">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-medium text-[#5B7587]">Sedang Dipinjam</span>
-                            <span class="rounded-full bg-[#10B981]/10 text-[#10B981] text-[11px] font-medium px-3 py-1">Aktif</span>
+                <div class="bv-hero-illust" style="position:relative; animation:bvFadeUp 0.7s 0.1s ease forwards; opacity:0;">
+                    <div style="position:relative; margin:0 auto; width:100%; max-width:24rem; aspect-ratio:4/5; border-radius:28px; background:#fff; border:1px solid #E3F1FB; box-shadow:0 40px 80px -30px rgba(14,165,233,0.4); padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+                        <div class="bv-card-row">
+                            <span style="font-size:0.75rem; font-weight:500; color:#5B7587; font-family:'Inter',sans-serif;">Sedang Dipinjam</span>
+                            <span style="border-radius:9999px; background:rgba(16,185,129,0.1); color:#10B981; font-size:0.6875rem; font-weight:500; padding:0.25rem 0.75rem; font-family:'Inter',sans-serif;">Aktif</span>
                         </div>
 
-                        <div class="space-y-4">
-                            <div class="h-28 w-20 rounded-xl bg-gradient-to-br from-[#0EA5E9] to-[#0369A1] shadow-lg"></div>
+                        <div style="display:flex; flex-direction:column; gap:1rem;">
+                            <div style="height:7rem; width:5rem; border-radius:0.75rem; background:linear-gradient(135deg,#0EA5E9,#0369A1); box-shadow:0 8px 20px -6px rgba(14,165,233,0.4);"></div>
                             <div>
-                                <p class="font-[Fraunces] text-lg text-[#0C2D3F] leading-snug">Filosofi Ilmu &amp;<br>Metode Berpikir</p>
-                                <p class="text-xs text-[#5B7587] mt-1">Sujarwo Hadi &middot; 312 hlm</p>
+                                <p style="font-family:'Fraunces',serif; font-size:1.125rem; color:#0C2D3F; line-height:1.375;">Filosofi Ilmu &<br>Metode Berpikir</p>
+                                <p style="font-size:0.75rem; color:#5B7587; margin-top:0.25rem; font-family:'Inter',sans-serif;">Sujarwo Hadi &middot; 312 hlm</p>
                             </div>
                         </div>
 
-                        <div class="border-t border-[#E3F1FB] pt-4 flex items-center justify-between text-xs text-[#5B7587]">
+                        <div class="bv-card-foot" style="font-size:0.75rem; color:#5B7587; font-family:'Inter',sans-serif;">
                             <span>Jatuh tempo</span>
-                            <span class="font-medium text-[#0C2D3F]">12 Jul 2026</span>
+                            <span style="font-weight:500; color:#0C2D3F;">12 Jul 2026</span>
                         </div>
                     </div>
 
                     {{-- floating badge card --}}
-                    <div class="absolute -bottom-6 -left-6 w-48 rounded-2xl bg-white border border-[#E3F1FB] shadow-[0_25px_50px_-20px_rgba(14,165,233,0.35)] p-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-[#0EA5E9]/10 flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-[#0EA5E9]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div style="position:absolute; bottom:-1.5rem; left:-1.5rem; width:12rem; border-radius:1rem; background:#fff; border:1px solid #E3F1FB; box-shadow:0 25px 50px -20px rgba(14,165,233,0.35); padding:1rem;">
+                        <div class="bv-badge-row">
+                            <div style="width:2.5rem; height:2.5rem; border-radius:9999px; background:rgba(14,165,233,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                <svg style="width:1.25rem; height:1.25rem; color:#0EA5E9;" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
                                 </svg>
                             </div>
                             <div>
-                                <p class="text-sm font-semibold text-[#0C2D3F]">12.480+</p>
-                                <p class="text-[11px] text-[#5B7587]">Judul buku</p>
+                                <p style="font-size:0.875rem; font-weight:600; color:#0C2D3F; font-family:'Inter',sans-serif;">12.480+</p>
+                                <p style="font-size:0.6875rem; color:#5B7587; font-family:'Inter',sans-serif;">Judul buku</p>
                             </div>
                         </div>
                     </div>
@@ -101,26 +167,28 @@
     {{-- ==========================================================
          STATISTIK
     =========================================================== --}}
-    <section class="max-w-6xl mx-auto px-6 py-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <section style="max-width:72rem; margin:0 auto; padding:1.5rem 1.5rem;">
+        <div class="bv-stats-grid">
             @php
                 $stats = [
                     ['label' => 'Total Koleksi', 'value' => '12.480', 'icon' => 'M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25'],
                     ['label' => 'Anggota Aktif', 'value' => '3.216', 'icon' => 'M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'],
-                    ['label' => 'Sedang Dipinjam', 'value' => '842', 'icon' => 'M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25'],
-                    ['label' => 'Kategori', 'value' => '36', 'icon' => 'M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859M12 3v8.25m0 0l-3-3m3 3l3-3'],
+                    ['label' => 'Sedang Dipinjam', 'value' => '842', 'icon' => 'M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-1.007.66-1.86 1.569-2.147'],
+                    ['label' => 'Kategori', 'value' => '36', 'icon' => 'M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z'],
                 ];
             @endphp
 
             @foreach ($stats as $stat)
-                <div class="rounded-[24px] bg-white border border-[#E3F1FB] shadow-[0_20px_40px_-28px_rgba(14,165,233,0.35)] p-5 hover:-translate-y-1 transition-transform duration-200">
-                    <div class="w-10 h-10 rounded-xl bg-[#0EA5E9]/10 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-[#0EA5E9]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div style="border-radius:24px; background:#fff; border:1px solid #E3F1FB; box-shadow:0 20px 40px -28px rgba(14,165,233,0.35); padding:1.25rem; transition:transform 0.2s; cursor:default;"
+                    onmouseover="this.style.transform='translateY(-4px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <div class="bv-icon-box">
+                        <svg style="width:1.25rem; height:1.25rem; color:#0EA5E9;" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $stat['icon'] }}"/>
                         </svg>
                     </div>
-                    <p class="mt-4 font-[Fraunces] text-2xl text-[#0C2D3F]">{{ $stat['value'] }}</p>
-                    <p class="text-xs text-[#5B7587] mt-1">{{ $stat['label'] }}</p>
+                    <p style="margin-top:1rem; font-family:'Fraunces',serif; font-size:1.5rem; color:#0C2D3F;">{{ $stat['value'] }}</p>
+                    <p style="font-size:0.75rem; color:#5B7587; margin-top:0.25rem; font-family:'Inter',sans-serif;">{{ $stat['label'] }}</p>
                 </div>
             @endforeach
         </div>
@@ -129,16 +197,17 @@
     {{-- ==========================================================
          KATEGORI POPULER
     =========================================================== --}}
-    <section class="max-w-6xl mx-auto px-6 py-14">
-        <div class="flex items-end justify-between mb-6">
+    <section style="max-width:72rem; margin:0 auto; padding:3.5rem 1.5rem;">
+        <div class="bv-row" style="margin-bottom:1.5rem;">
             <div>
-                <p class="text-xs font-medium text-[#0284C7] mb-2">Jelajahi</p>
-                <h2 class="font-[Fraunces] text-2xl text-[#0C2D3F]">Kategori Populer</h2>
+                <p style="font-size:0.75rem; font-weight:500; color:#0284C7; margin-bottom:0.5rem; font-family:'Inter',sans-serif;">Jelajahi</p>
+                <h2 style="font-family:'Fraunces',serif; font-size:1.5rem; color:#0C2D3F;">Kategori Populer</h2>
             </div>
-            <a href="#" class="text-sm text-[#0284C7] font-medium hover:text-[#0369A1] transition-colors">Lihat semua &rarr;</a>
+            <a href="#" style="font-size:0.875rem; color:#0284C7; font-weight:500; text-decoration:none; transition:color 0.2s; font-family:'Inter',sans-serif;"
+                onmouseover="this.style.color='#0369A1'" onmouseout="this.style.color='#0284C7'">Lihat semua &rarr;</a>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bv-cats-grid">
             @php
                 $categories = [
                     ['name' => 'Fiksi', 'count' => '2.140'],
@@ -151,9 +220,11 @@
             @endphp
 
             @foreach ($categories as $cat)
-                <a href="#" class="group rounded-2xl bg-white border border-[#E3F1FB] p-5 text-center hover:border-[#0EA5E9] hover:-translate-y-1 transition-all duration-200 shadow-[0_16px_32px_-26px_rgba(14,165,233,0.4)]">
-                    <p class="text-sm font-medium text-[#0C2D3F] group-hover:text-[#0284C7]">{{ $cat['name'] }}</p>
-                    <p class="text-[11px] text-[#5B7587] mt-1">{{ $cat['count'] }} judul</p>
+                <a href="#" style="border-radius:1rem; background:#fff; border:1px solid #E3F1FB; padding:1.25rem; text-align:center; text-decoration:none; box-shadow:0 16px 32px -26px rgba(14,165,233,0.4); transition:all 0.2s; display:block;"
+                    onmouseover="this.style.borderColor='#0EA5E9'; this.style.transform='translateY(-4px)'"
+                    onmouseout="this.style.borderColor='#E3F1FB'; this.style.transform='translateY(0)'">
+                    <p style="font-size:0.875rem; font-weight:500; color:#0C2D3F; font-family:'Inter',sans-serif;">{{ $cat['name'] }}</p>
+                    <p style="font-size:0.6875rem; color:#5B7587; margin-top:0.25rem; font-family:'Inter',sans-serif;">{{ $cat['count'] }} judul</p>
                 </a>
             @endforeach
         </div>
@@ -162,16 +233,17 @@
     {{-- ==========================================================
          BUKU TERBARU
     =========================================================== --}}
-    <section class="max-w-6xl mx-auto px-6 py-6 pb-20">
-        <div class="flex items-end justify-between mb-6">
+    <section style="max-width:72rem; margin:0 auto; padding:1.5rem 1.5rem 5rem;">
+        <div class="bv-row" style="margin-bottom:1.5rem;">
             <div>
-                <p class="text-xs font-medium text-[#0284C7] mb-2">Baru Ditambahkan</p>
-                <h2 class="font-[Fraunces] text-2xl text-[#0C2D3F]">Koleksi Terbaru</h2>
+                <p style="font-size:0.75rem; font-weight:500; color:#0284C7; margin-bottom:0.5rem; font-family:'Inter',sans-serif;">Baru Ditambahkan</p>
+                <h2 style="font-family:'Fraunces',serif; font-size:1.5rem; color:#0C2D3F;">Koleksi Terbaru</h2>
             </div>
-            <a href="#" class="text-sm text-[#0284C7] font-medium hover:text-[#0369A1] transition-colors">Lihat katalog &rarr;</a>
+            <a href="#" style="font-size:0.875rem; color:#0284C7; font-weight:500; text-decoration:none; transition:color 0.2s; font-family:'Inter',sans-serif;"
+                onmouseover="this.style.color='#0369A1'" onmouseout="this.style.color='#0284C7'">Lihat katalog &rarr;</a>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div class="bv-books-grid">
             @php
                 $books = [
                     ['title' => 'Bumi Manusia', 'author' => 'Pramoedya A.T.', 'badge' => 'Fiksi', 'from' => '#0EA5E9', 'to' => '#0369A1'],
@@ -182,13 +254,15 @@
             @endphp
 
             @foreach ($books as $book)
-                <div class="group rounded-[24px] bg-white border border-[#E3F1FB] p-4 shadow-[0_20px_40px_-28px_rgba(14,165,233,0.35)] hover:-translate-y-1.5 hover:shadow-[0_30px_50px_-24px_rgba(14,165,233,0.45)] transition-all duration-300">
-                    <div class="rounded-2xl h-40 w-full mb-4 shadow-inner" style="background: linear-gradient(135deg, {{ $book['from'] }}, {{ $book['to'] }})"></div>
-                    <span class="inline-block rounded-full bg-[#0EA5E9]/10 text-[#0284C7] text-[11px] font-medium px-3 py-1 mb-2">{{ $book['badge'] }}</span>
-                    <p class="font-[Fraunces] text-base text-[#0C2D3F] leading-snug">{{ $book['title'] }}</p>
-                    <p class="text-xs text-[#5B7587] mt-1">{{ $book['author'] }}</p>
+                <div style="border-radius:24px; background:#fff; border:1px solid #E3F1FB; padding:1rem; box-shadow:0 20px 40px -28px rgba(14,165,233,0.35); transition:all 0.3s; cursor:default;"
+                    onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 30px 50px -24px rgba(14,165,233,0.45)'; this.querySelector('.bv-btn-detail').style.background='linear-gradient(135deg,#0EA5E9,#0284C7)'; this.querySelector('.bv-btn-detail').style.color='#fff'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 40px -28px rgba(14,165,233,0.35)'; this.querySelector('.bv-btn-detail').style.background='#F3F9FE'; this.querySelector('.bv-btn-detail').style.color='#0284C7'">
+                    <div style="border-radius:1rem; height:10rem; width:100%; margin-bottom:1rem; box-shadow:inset 0 2px 8px rgba(0,0,0,0.06); background:linear-gradient(135deg, {{ $book['from'] }}, {{ $book['to'] }});"></div>
+                    <span style="display:inline-block; border-radius:9999px; background:rgba(14,165,233,0.1); color:#0284C7; font-size:0.6875rem; font-weight:500; padding:0.25rem 0.75rem; margin-bottom:0.5rem; font-family:'Inter',sans-serif;">{{ $book['badge'] }}</span>
+                    <p style="font-family:'Fraunces',serif; font-size:1rem; color:#0C2D3F; line-height:1.375;">{{ $book['title'] }}</p>
+                    <p style="font-size:0.75rem; color:#5B7587; margin-top:0.25rem; font-family:'Inter',sans-serif;">{{ $book['author'] }}</p>
 
-                    <button class="mt-4 w-full rounded-full bg-[#F3F9FE] text-[#0284C7] text-xs font-medium py-2.5 group-hover:bg-gradient-to-r group-hover:from-[#0EA5E9] group-hover:to-[#0284C7] group-hover:text-white transition-all duration-200">
+                    <button class="bv-btn-detail" style="margin-top:1rem; width:100%; border-radius:9999px; background:#F3F9FE; color:#0284C7; font-size:0.75rem; font-weight:500; padding:0.625rem 0; border:none; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s;">
                         Lihat Detail
                     </button>
                 </div>
@@ -199,28 +273,22 @@
     {{-- ==========================================================
          CTA
     =========================================================== --}}
-    <section class="max-w-6xl mx-auto px-6 pb-20">
-        <div class="relative overflow-hidden rounded-[28px] bg-gradient-to-r from-[#0EA5E9] to-[#0369A1] px-8 py-14 md:px-16 text-center shadow-[0_40px_80px_-30px_rgba(3,105,161,0.5)]">
-            <div class="pointer-events-none absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 22px 22px;"></div>
-            <h2 class="relative font-[Fraunces] text-2xl md:text-3xl text-white leading-tight">
+    <section style="max-width:72rem; margin:0 auto; padding:0 1.5rem 5rem;">
+        <div style="position:relative; overflow:hidden; border-radius:28px; background:linear-gradient(to right,#0EA5E9,#0369A1); padding:3.5rem 2rem; text-align:center; box-shadow:0 40px 80px -30px rgba(3,105,161,0.5);">
+            <div style="pointer-events:none; position:absolute; inset:0; opacity:0.08; background-image:radial-gradient(circle, #fff 1px, transparent 1px); background-size:22px 22px;"></div>
+            <h2 style="position:relative; font-family:'Fraunces',serif; font-size:1.875rem; color:#fff; line-height:1.25;">
                 Belum punya akun anggota?
             </h2>
-            <p class="relative text-white/80 text-sm mt-3 max-w-md mx-auto">
+            <p style="position:relative; color:rgba(255,255,255,0.8); font-size:0.875rem; margin-top:0.75rem; max-width:28rem; margin-left:auto; margin-right:auto; font-family:'Inter',sans-serif; line-height:1.625;">
                 Daftar sekarang dan mulai pinjam buku favoritmu dari koleksi BookVerse.
             </p>
-            <a href="#" class="relative inline-block mt-7 rounded-full bg-white text-[#0284C7] text-sm font-medium px-7 py-3 shadow-lg hover:-translate-y-0.5 transition-transform duration-200">
+            <a href="{{ route('register') }}" style="position:relative; display:inline-block; margin-top:1.75rem; border-radius:9999px; background:#fff; color:#0284C7; font-size:0.875rem; font-weight:500; padding:0.75rem 1.75rem; text-decoration:none; box-shadow:0 8px 24px -6px rgba(0,0,0,0.15); transition:transform 0.2s; font-family:'Inter',sans-serif;"
+                onmouseover="this.style.transform='translateY(-2px)'"
+                onmouseout="this.style.transform='translateY(0)'">
                 Daftar Sekarang
             </a>
         </div>
     </section>
 
+</div>
 @endsection
-
-@push('styles')
-<style>
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-</style>
-@endpush

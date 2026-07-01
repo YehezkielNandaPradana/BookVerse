@@ -54,13 +54,12 @@ use App\Http\Controllers\WishlistController;
 // ==========================================
 // 1. PUBLIC ROUTES (GUEST / ALL USERS)
 // ==========================================
-Route::get('/', [PublicController::class, 'home'])->name('public.home');
+Route::get('/', [PublicController::class, 'home'])->name('beranda');
 Route::get('/books', [PublicController::class, 'books'])->name('public.books.index');
 Route::get('/books/{book}', [PublicController::class, 'bookDetail'])->name('public.books.show');
 Route::get('/profile-library', [PublicController::class, 'profile'])->name('public.profile');
 Route::get('/contact', [PublicController::class, 'contact'])->name('public.contact');
 Route::post('/contact', [PublicController::class, 'sendContact'])->name('public.contact.send');
-
 // ==========================================
 // 2. GUEST-ONLY ROUTES (AUTHENTICATION)
 // ==========================================
